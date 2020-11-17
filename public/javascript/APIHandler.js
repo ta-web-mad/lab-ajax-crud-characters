@@ -5,35 +5,14 @@ class APIHandler {
     })
   }
 
-  getFullList() {
-    this.axiosApp.get('/characters')
-  }
+  getFullList = () => this.axiosApp.get('/characters')
 
-  getOneRegister(character_id) {
-    this.axiosApp
-      .get(`/characters/${character_id}`)
-      .then(character => console.log(character))
-      .catch(err => console.log('ERROR:', err))
-  }
+  getOneRegister = character_id  => this.axiosApp.get(`/characters/${character_id}`)
 
-  createOneRegister(characterInfo) {
-    this.axiosApp
-      .post('/characters', characterInfo)
-      .then(character => console.log(character))
-      .catch(err => console.log('ERROR:', err))
-  }
+  createOneRegister = characterInfo => this.axiosApp.post('/characters', characterInfo)
 
-  updateOneRegister(character_id, newCharacterInfo) {
-    this.axiosApp
-      .put(`/characters/${character_id}`, newCharacterInfo)
-      .then(character => console.log(character))
-      .catch(err => console.log('ERROR:', err))
-  }
+  updateOneRegister = (character_id, newCharacterInfo) => this.axiosApp.put(`/characters/${character_id}`, newCharacterInfo)
 
-  deleteOneRegister(character_id) {
-    this.axiosApp
-      .delete(`characters/${character_id}`)
-      .then(character => console.log(character))
-      .catch(err => console.log('ERROR:', err))
-  }
+  deleteOneRegister = character_id => this.axiosApp.delete(`characters/${character_id}`)
+
 }
