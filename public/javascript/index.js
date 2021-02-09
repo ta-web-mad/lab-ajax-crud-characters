@@ -5,19 +5,24 @@ window.addEventListener("load", () => {
   document
     .getElementById("fetch-all")
     .addEventListener("click", function (event) {
-      charactersAPI.getFullList().then((response) => {
-        let characters = response.data,
-          list = "";
-        characters.forEach(
-          (character) =>
-            (list += `<li><p><strong>Name </strong>${character.name}</p>  
-            <p><strong>Occupation: </strong>${character.occupation}</p>
-            <p><strong>Cartoon? </strong>${character.cartoon}</p>
-            <p><strong>Weapon: </strong>${character.weapon}</p>
-            </li> <hr>`)
-        );
-        document.querySelector("#charactersList").innerHTML = list;
-      });
+      charactersAPI
+        .getFullList()
+        .then((response) => {
+          let characters = response.data,
+            list = "";
+
+          characters.forEach(
+            (character) =>
+              (list += `<div class="character-info">
+            <div class="name">Character Name <span>${character.name}</span></div>
+            <div class="occupation">Character Occupation<span>${character.occupation}</span></div>
+            <div class="cartoon">Is a Cartoon?<span>${character.cartoon}</span></div>
+            <div class="weapon">Character Weapon<span>${character.weapon}</span></div>
+          </div>`)
+          );
+          document.querySelector("#charactersList").innerHTML = list;
+        })
+        .catch(() => toastr.error("Something went wrong"));
     });
 
   // Fetch one register
@@ -25,14 +30,19 @@ window.addEventListener("load", () => {
     .getElementById("fetch-one")
     .addEventListener("click", function (event) {
       const wantedId = document.querySelector(".find-one input").value;
-      charactersAPI.getOneRegister(wantedId).then((response) => {
-        document.querySelector(
-          "#singleCharacter"
-        ).innerHTML = `<p><strong>Name </strong>${response.data.name}</p>  
-          <p><strong>Occupation: </strong>${response.data.occupation}</p>
-            <p><strong>Cartoon? </strong>${response.data.cartoon}</p>
-            <p><strong>Weapon: </strong>${response.data.weapon}</p>`;
-      });
+      charactersAPI
+        .getOneRegister(wantedId)
+        .then((response) => {
+          document.querySelector(
+            "#singleCharacter"
+          ).innerHTML = `<div class="character-info">
+        <div class="name">Character Name <span>${response.data.name}</span></div>
+        <div class="occupation">Character Occupation<span>${response.data.occupation}</span></div>
+        <div class="cartoon">Is a Cartoon?<span>${response.data.cartoon}</span></div>
+        <div class="weapon">Character Weapon<span>${response.data.weapon}</span></div>
+      </div>`;
+        })
+        .catch(() => toastr.error("Something went wrong"));
     });
 
   // Delete one register
@@ -43,8 +53,11 @@ window.addEventListener("load", () => {
       const wantedId = document.querySelector(".delete input").value;
       charactersAPI
         .deleteOneRegister(wantedId)
-        .then(console.log("deleted"))
-        .catch((err) => console.log(err));
+        .then(() => {
+          document.querySelector(".delete input").value = null;
+          toastr.info(`User with ID ${wantedId} successfully deleted`);
+        })
+        .catch(() => toastr.error("Something went wrong"));
     });
 
   // Edit one register
@@ -56,7 +69,7 @@ window.addEventListener("load", () => {
       const update = document.querySelectorAll("#edit-character-form input");
       const wantedId = update[0].value;
 
-      const oldCharacter = charactersAPI
+      charactersAPI
         .getOneRegister(wantedId)
         .then((response) => response.data)
         .then((oldData) => {
@@ -70,11 +83,14 @@ window.addEventListener("load", () => {
           return updatedCharacter;
         })
         .then((updatedCharacter) =>
-          charactersAPI.updateOneRegister(wantedId, updatedCharacter)
+          charactersAPI
+            .updateOneRegister(wantedId, updatedCharacter)
+            .then(() => {
+              toastr.info("Character sucessfully edited");
+              event.target.reset();
+            })
         )
-        .catch((err) => console.log(err));
-
-      charactersAPI.updateOneRegister(2);
+        .catch(() => toastr.error("Something went wrong"));
     });
 
   // Add new register
@@ -93,7 +109,6 @@ window.addEventListener("load", () => {
           return newCharacterId;
         })
         .then((newCharacterId) => {
-          inputCharacter.forEach((input) => console.log(input.value));
           const newCharacter = {
             name: inputCharacter[0].value,
             occupation: inputCharacter[1].value,
@@ -104,11 +119,11 @@ window.addEventListener("load", () => {
           return newCharacter;
         })
         .then((newCharacter) => {
-          console.log(newCharacter);
           charactersAPI.createOneRegister(newCharacter).then(() => {
-            inputCharacter.forEach((input) => (input.value = null));
+            toastr.info("Character successfully created");
+            event.target.reset();
           });
         })
-        .catch((err) => console.log(err));
+        .catch(() => toastr.error("Something went wrong"));
     });
 });
