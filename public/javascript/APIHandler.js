@@ -7,9 +7,9 @@ class APIHandler {
 
   getFullList = () => this.app.get("/characters");
 
-  getOneRegister() {}
+  getOneRegister = (id) => this.app.get(`/characters/${id}`);
 
-  createOneRegister() {}
+  createOneRegister = (character) => this.app.post("/characters", character);
 
   updateOneRegister() {}
 
