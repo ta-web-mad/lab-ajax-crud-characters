@@ -11,7 +11,8 @@ class APIHandler {
 
   createOneRegister = (character) => this.app.post("/characters", character);
 
-  updateOneRegister() {}
+  updateOneRegister = (id, updatedCharacter) =>
+    this.app.put(`/characters/${id}`, updatedCharacter);
 
-  deleteOneRegister() {}
+  deleteOneRegister = (id) => this.app.delete(`/characters/${id}`);
 }
