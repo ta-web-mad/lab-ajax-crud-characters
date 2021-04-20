@@ -9,7 +9,7 @@ fillCharactersList = () => {
         const { data } = response
         // console.log(data)
         let resultsList = ''
-        data.forEach(elm => resultsList += `<ul><li><b>${elm.name}</b><br> Occupation: ${elm.occupation}<br> Cartoon: ${elm.cartoon}<br> Weapon: ${elm.weapon}</li></ul>`)
+        data.forEach(elm => resultsList += `<ul><li>Name: ${elm.name}<br> Occupation: ${elm.occupation}<br> Cartoon: ${elm.cartoon}<br> Weapon: ${elm.weapon}</li></ul>`)
         document.querySelector('#resultsAll').innerHTML = resultsList
       })
       .catch(err => console.log('error', err))
@@ -59,6 +59,7 @@ window.addEventListener('load', () => {
       .deleteOneRegister(characterId)
       .then( () => {
         deleteBtn.classList.add('success')
+        fillCharactersList()
       })
       .catch(err => {
         deleteBtn.classList.add('fail')
