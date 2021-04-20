@@ -51,7 +51,7 @@ window.addEventListener('load', () => {
     event.preventDefault()
 
     const characterId = document.querySelector('#deleteBar input').value
-    console.log(characterId)
+    // console.log(characterId)
 
     const deleteBtn = document.getElementById('delete-one')
 
@@ -60,6 +60,7 @@ window.addEventListener('load', () => {
       .then( () => {
         deleteBtn.classList.add('success')
         fillCharactersList()
+        document.querySelector('#deleteBar input').value = ''
       })
       .catch(err => {
         deleteBtn.classList.add('fail')
