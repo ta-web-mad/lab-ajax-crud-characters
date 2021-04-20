@@ -105,3 +105,25 @@ button {
 .submit-button {
   margin: 10px 0 0 120px;
 }
+
+.row{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+}
+
+.col-card{
+  width: 20%;
+  border: solid white 2px;
+  border-radius: 20px;
+  padding: 5px 35px;
+  margin: 15px;
+}
+
+.col-card > div{
+  display: flex;
+  justify-content : space-between;
+}
