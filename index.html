@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css'>
   <link rel="stylesheet" href="./public/stylesheets/style.css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <title>IH Characters</title>
@@ -12,76 +13,105 @@
   <section class="container">
     <h1>Ironhack Characters API</h1>
     <div class="characters-container">
+
       <div class="character-info">
-        <div class="name">Character Name</div>
-        <div class="occupation">Character Occupation</div>
+        <div class="name">Character Name:</div>
+        <div class="occupation">Character Occupation:</div>
         <div class="cartoon">Is a Cartoon?</div>
-        <div class="weapon">Character Weapon</div>
+        <div class="weapon">Character Weapon:</div>
       </div>
+
     </div>
     <section class="operations">
+
       <div class="operation">
         <button id="fetch-all">Fetch all</button>
       </div>
-      <div class="operation">
+      <article class="show-list">
+      </article>
+
+      <div class="operation"  >
         <label for="character-id">Search by ID: </label>
-        <input type="text" name="character-id">
+        <input type="text" name="character-id" id="idsearch-show">
         <button id="fetch-one">Fetch one</button>
       </div>
+      <article class="show-one">
+      </article>
+
       <div class="operation delete">
         <label for="character-id-delete">Delete by ID: </label>
-        <input type="text" name="character-id-delete">
+        <input type="text" name="character-id-delete" id="idsearch-delete">
         <button id="delete-one">Delete one</button>
       </div>
+      <article class="delete-one">
+      </article>
 
     </section>
   </section>
   <section class="container">
     <section class="form-container">
+
       <h2>New Character</h2>
       <form id="new-character-form" class="character-form">
+
         <div class="field">
           <label for="name">Name: </label>
           <input type="text" name="name">
         </div>
+
         <div class="field">
           <label for="occupation">Occupation: </label>
           <input type="text" name="occupation">
         </div>
+
         <div class="field">
           <label for="weapon">Weapon: </label>
           <input type="text" name="weapon">
         </div>
+
         <div class="field">
           <label for="cartoon">Is a Cartoon: </label>
           <input name="cartoon" type="checkbox">
         </div>
+
         <button id="send-data">Create</button>
       </form>
     </section>
+
+
     <section class="form-container">
       <h2>Edit Character</h2>
-      <form id="edit-character-form" class="character-form">
+      <form id="fill-character-form" class="character-form">
+
         <div class="field">
           <label for="id">ID: </label>
-          <input type="text" name="chr-id">
+          <input type="text" name="chr-id" id="id-search">
         </div>
+
+          <button id="fill-data">Fill Info</button>
+        </form>
+        
+        <form id="edit-character-form" class="character-form">
         <div class="field">
           <label for="name">Name: </label>
           <input type="text" name="name">
         </div>
+
         <div class="field">
           <label for="occupation">Occupation: </label>
           <input type="text" name="occupation">
         </div>
+
         <div class="field">
           <label for="weapon">Weapon: </label>
           <input type="text" name="weapon">
         </div>
+
         <div class="field">
           <label for="cartoon">Is a Cartoon: </label>
           <input name="cartoon" type="checkbox">
         </div>
+
         <button id="send-data">Update</button>
       </form>
     </section>
