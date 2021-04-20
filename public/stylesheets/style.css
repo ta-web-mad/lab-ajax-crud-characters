@@ -14,6 +14,12 @@ h1, h2 {
   color: #d8b362;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 15px 0;
+}
+
 button {
   font-family: inherit;
   font-size: 11px;
@@ -104,4 +110,14 @@ button {
 
 .submit-button {
   margin: 10px 0 0 120px;
+}
+
+/* BTN BACKGROUND COLOR CONDITIONS */
+
+.success {
+  background-color: green;
+}
+
+.fail {
+  background-color: red;
 }

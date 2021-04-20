@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./public/stylesheets/style.css">
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <title>IH Characters</title>
 </head>
 <body>
@@ -23,12 +22,14 @@
       <div class="operation">
         <button id="fetch-all">Fetch all</button>
       </div>
-      <div class="operation">
+      <div id="resultsAll"></div>
+      <div id="findBar" class="operation">
         <label for="character-id">Search by ID: </label>
         <input type="text" name="character-id">
         <button id="fetch-one">Fetch one</button>
       </div>
-      <div class="operation delete">
+      <div id="resultsSearch"></div>
+      <div id="deleteBar" class="operation delete">
         <label for="character-id-delete">Delete by ID: </label>
         <input type="text" name="character-id-delete">
         <button id="delete-one">Delete one</button>
@@ -80,12 +81,13 @@
         </div>
         <div class="field">
           <label for="cartoon">Is a Cartoon: </label>
-          <input name="cartoon" type="checkbox">
+          <input name="cartoon" type="checkbox" value="true">
         </div>
         <button id="send-data">Update</button>
       </form>
     </section>
   </section>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="./public/javascript/APIHandler.js"></script>
   <script type="text/javascript" src="./public/javascript/index.js"></script>
 </body>
