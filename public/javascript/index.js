@@ -59,7 +59,7 @@ window.addEventListener('load', () => {
       name: inputs[1].value,
       occupation: inputs[2].value,
       weapon: inputs[3].value,
-      cartoon: inputs[4].value === 'on',
+      cartoon: inputs[4].checked
     }
     //console.log(character)
     charactersAPI
