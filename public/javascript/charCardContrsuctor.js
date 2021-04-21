@@ -1,6 +1,6 @@
 const constrcutCharCard = character => {
     let isCartoon = ''
-    character.cartoon ? isCartoon = 'Cartoon' : isCartoon = 'Non-Cartoon'
+    isCartoon = character.cartoon ? 'Cartoon' : 'Non-Cartoon'
     return `<div class="character-info">
   <div class="id">ID: <span>${character.id}</span></div>
   <div class="name">Name: <span>${character.name}</span></div>
