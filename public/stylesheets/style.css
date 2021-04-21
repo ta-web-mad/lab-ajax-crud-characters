@@ -7,11 +7,13 @@
 body {
   font-family: 'Roboto';
   color: white;
-  background: url("../images/minions.jpg")
+  background: url("../images/gremlins.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1, h2 {
-  color: #d8b362;
+  color: #9eda5a;
 }
 
 button {
@@ -39,6 +41,7 @@ button {
   border-radius: 20px;
   background-color: rgba(88, 98, 123, 0.95);
   text-align: center;
+  margin-bottom: 100px;
 }
 
 .characters-container {
@@ -52,6 +55,10 @@ button {
 
 .active {
   background-color: #42f471;
+}
+
+.failed {
+  background-color: #f44260;
 }
 
 .operations {
@@ -74,7 +81,7 @@ button {
 }
 
 .character-info div span {
-  color: #d8b362;
+  color: #20a4fc;
   position: absolute;
   left: 50%;
 }
