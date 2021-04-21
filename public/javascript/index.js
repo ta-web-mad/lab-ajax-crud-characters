@@ -98,7 +98,10 @@ window.addEventListener('load', () => {
 
     const createBtn = document.querySelector('#new-character-form button')
 
-    charactersAPI
+    if (inputs[0].value.length === 0 || inputs[1].value.length === 0 || inputs[2].value.length === 0 || inputs[3].value.length === 0) {
+      createBtn.classList.add('fail')
+    } else {
+      charactersAPI
       .createOneRegister(newCharacter)
       .then( () => {
         createBtn.classList.add('success')
@@ -109,6 +112,7 @@ window.addEventListener('load', () => {
         createBtn.classList.add('fail')
         console.log('error', err)
       })
+    }
   });
 
 
@@ -140,7 +144,10 @@ document.getElementById('edit-character-form').addEventListener('submit', functi
     // console.log(updatedCharacter)
 
   const updateBtn = document.querySelector('#edit-character-form button')
-  
+  if (inputs[1].value.length === 0 || inputs[2].value.length === 0 || inputs[3].value.length === 0 || inputs[4].value.length === 0) {
+      updateBtn.classList.add('fail')
+    } else {
+
   charactersAPI
     .updateOneRegister(characterId, updatedCharacter)
     .then( () => {
@@ -152,7 +159,7 @@ document.getElementById('edit-character-form').addEventListener('submit', functi
       updateBtn.classList.add('fail')
       console.log('error', err)
     })
-
+  }
 });
 
 });
