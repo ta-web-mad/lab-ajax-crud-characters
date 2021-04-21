@@ -50,25 +50,21 @@ window.addEventListener('load', () => {
 
   const characterId = info[0].value
   console.log(characterId)
-  const characterInfo = {
+  const newInfo = {
       name: info[1].value,
       occupation: info[2].value,
       weapon: info[3].value,
-      cartoon: info[4].value
     }
-    console.log(characterInfo)
+    console.log(newInfo)
   charactersAPI
-    .updateOneRegister(characterId, characterInfo)
-    .then( () => {
-      console.log('Changes Made!!')
-      //document.getElementById('edit-character-form').reset()
+    .updateOneRegister(characterId, newInfo)
+    .then( (popino) => {
+      console.log(popino)
+      document.getElementById('edit-character-form').reset()
       })
     .catch(err => {
       console.log('error', err)
     })
-
-
-
   });
 //Create New
   document.getElementById('new-character-form').addEventListener('submit', function (event) {
