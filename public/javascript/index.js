@@ -38,6 +38,15 @@ function displayCharacterfromAPI(elem){
 }
 
 
+function isInvalidValidData(name, occupation, weapon, button) {
+  const dataIsInvalid = name == '' || occupation == '' || weapon == ''
+  if( dataIsInvalid ){
+    button.className='error'
+    return true
+  }
+  return false
+}
+
 
 
 // ******************************************** display all characters
@@ -54,8 +63,14 @@ document.getElementById('fetch-one').addEventListener('click', function (event) 
   const button = document.getElementById('fetch-one')
   const input = document.querySelector('[name="character-id"]')
   const id = input.value
-  // const id = document.querySelector('[name="character-id"]').value
-  console.log(id)
+
+  let isnum = /^\d+$/.test(id);
+  
+  if( isnum == false ){
+    button.className='error'
+    return
+  }
+  
   charactersAPI
         .getOneRegister(id)
         .then(response => {
@@ -75,6 +90,8 @@ document.getElementById('fetch-one').addEventListener('click', function (event) 
 // ******************************************** delete one character
 document.getElementById('delete-one').addEventListener('click', function (event) {
   event.preventDefault()
+  
+  const button = document.getElementById('delete-one')
   const input = document.querySelector('[name="character-id-delete"]')
   const id = input.value
   // const id = document.querySelector('[name="character-id"]').value
@@ -85,10 +102,61 @@ document.getElementById('delete-one').addEventListener('click', function (event)
             displayCharacterfromAPI(response.data)
             input.value = ''
             // input.reset()
+            button.className='success'
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          button.className='error'
+          console.log(err)      
+          
+        })
 
 });
+
+
+
+
+// ******************************************** create new character
+document.getElementById('new-character-form').addEventListener('submit', function (event) {
+  event.preventDefault()
+  const button = document.querySelector('#new-character-form button')
+  const inputs = document.querySelectorAll('#new-character-form input')
+
+  const character = {
+      name: inputs[0].value,
+      occupation: inputs[1].value,
+      weapon: inputs[2].value,
+      cartoon: inputs[3].checked ? true : false
+  }
+
+  const {name, occupation, weapon} = character
+  if ( isInvalidValidData( name, occupation, weapon, button ) ){
+    return
+  }
+  
+  
+  // const {name, occupation, weapon} = character
+  // const dataIsInvalid = name == '' || occupation == '' || weapon == ''
+  // if( dataIsInvalid ){
+  //   button.className='error'
+  //   return
+  // }
+
+
+  charactersAPI
+      .createOneRegister(character)
+      .then(() => {
+        displayCharactersFromAPI()
+        document.querySelector('#new-character-form').reset()
+        button.className='success'
+      })
+      .catch(err => {
+        console.log(err)
+        button.className='error'
+      })
+
+});
+
+
 
 
 // ******************************************** Edit one character
@@ -106,11 +174,22 @@ document.getElementById('edit-character-form').addEventListener('submit', functi
     cartoon: inputs[4].checked ? true : false
   }
 
+  const {name, occupation, weapon} = character
+  if ( isInvalidValidData( name, occupation, weapon, button ) ){
+    return
+  }
+
   const characterId = inputs[0].value  
 
   charactersAPI
       .updateOneRegister(characterId, character)
-      .then(() => {
+      .then((el) => {
+        console.log(el.data)
+          if(el.data == null){
+            throw('No such element!')
+            // button.className='error'
+            
+          }
           displayCharactersFromAPI()
           document.querySelector('#edit-character-form').reset()
           button.className='success'
@@ -121,57 +200,6 @@ document.getElementById('edit-character-form').addEventListener('submit', functi
       })
 
 });
-
-
-// ******************************************** create new character
-document.getElementById('new-character-form').addEventListener('submit', function (event) {
-  event.preventDefault()
-  const button = document.querySelector('#new-character-form button')
-  const inputs = document.querySelectorAll('#new-character-form input')
-
-  const character = {
-      name: inputs[0].value,
-      occupation: inputs[1].value,
-      weapon: inputs[2].value,
-      cartoon: inputs[3].checked ? true : false
-  }
-  console.log(character)
-
-  charactersAPI
-      .createOneRegister(character)
-      .then(() => {
-        displayCharactersFromAPI()
-        document.querySelector('#new-character-form').reset()
-        button.className='success'
-      })
-      .catch(err => {
-        console.log(err)
-        button.className='error'
-      })
-
-});
 });
 
 
-
-// function loadCharacterFromAPI() {
-//   const id = document.querySelectorAll('[name="character-id"]').value
-//   console.log(id)
-// charactersAPI
-//   .getFullList()
-//   .then(res => {
-//     let characters = ''
-//     // res.data.reverse().forEach(elem => characters += `
-//     res.data.forEach(elem => characters += `
-//     <div class="character-info">
-//       <div class="name">${elem.name}</div>
-//       <div class="occupation">${elem.occupation}</div>
-//       <div class="cartoon">${elem.cartoon}</div>
-//       <div class="weapon">${elem.weapon}</div>
-//       <div class="weapon">${elem.id}</div>
-//     </div>
-//     `)
-//     document.querySelector('.characters-container').innerHTML = characters
-//   })
-//   .catch(err => console.log(err))
-// }
