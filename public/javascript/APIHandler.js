@@ -8,9 +8,9 @@ class APIHandler {
 
   getOneRegister = id => this.api.get(`/characters/${id}`)
 
-  createOneRegister = (characterInfo) => this.api.get('/characters', characterInfo)
+  createOneRegister = (characterInfo) => this.api.post('/characters', characterInfo)
 
-  updateOneRegister = (id, characterInfo) => this.api.get(`/characters${id}`, characterInfo)
+  updateOneRegister = (id, characterInfo) => this.api.put(`/characters/${id}`, characterInfo)
 
-  deleteOneRegister = (id) => this.api.delete(`/characters${id}`)
+  deleteOneRegister = (id) => this.api.delete(`/characters/${id}`)
 }
