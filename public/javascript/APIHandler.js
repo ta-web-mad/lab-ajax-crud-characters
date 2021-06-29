@@ -4,22 +4,27 @@ class APIHandler {
   }
 
   getFullList () {
-
+    return axios
+      .get('https://minions-api.herokuapp.com/characters')
   }
 
-  getOneRegister () {
-
+  getOneRegister (id) {
+    return axios
+      .get(`https://minions-api.herokuapp.com/characters/${id}`)
   }
 
-  createOneRegister () {
-
+  createOneRegister (body) {
+    return axios
+      .post('https://minions-api.herokuapp.com/characters/', body)
   }
 
-  updateOneRegister () {
-
+  updateOneRegister (id, body) {
+    return axios
+      .put(`https://minions-api.herokuapp.com/characters/${id}`, body)
   }
 
-  deleteOneRegister () {
-
+  deleteOneRegister (id) {
+    return axios
+      .delete(`https://minions-api.herokuapp.com/characters/${id}`)
   }
 }
