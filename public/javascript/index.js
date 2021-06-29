@@ -1,8 +1,6 @@
 const charactersAPI = new APIHandler('https://minions-api.herokuapp.com');
 
 
-// loadCharactersFromAPI()
-
 function displayCharactersFromAPI() {
 charactersAPI
   .getFullList()
@@ -78,7 +76,6 @@ document.getElementById('fetch-one').addEventListener('click', function (event) 
             input.value = ''
             // input.reset()
             button.className='success'
-            // button.addClass('success')
         })
         .catch(err => {
           console.log(err)
@@ -94,7 +91,6 @@ document.getElementById('delete-one').addEventListener('click', function (event)
   const button = document.getElementById('delete-one')
   const input = document.querySelector('[name="character-id-delete"]')
   const id = input.value
-  // const id = document.querySelector('[name="character-id"]').value
   console.log(id)
   charactersAPI
         .deleteOneRegister(id)
@@ -132,15 +128,6 @@ document.getElementById('new-character-form').addEventListener('submit', functio
   if ( isInvalidValidData( name, occupation, weapon, button ) ){
     return
   }
-  
-  
-  // const {name, occupation, weapon} = character
-  // const dataIsInvalid = name == '' || occupation == '' || weapon == ''
-  // if( dataIsInvalid ){
-  //   button.className='error'
-  //   return
-  // }
-
 
   charactersAPI
       .createOneRegister(character)
@@ -186,9 +173,7 @@ document.getElementById('edit-character-form').addEventListener('submit', functi
       .then((el) => {
         console.log(el.data)
           if(el.data == null){
-            throw('No such element!')
-            // button.className='error'
-            
+            throw('No such element!')            
           }
           displayCharactersFromAPI()
           document.querySelector('#edit-character-form').reset()
