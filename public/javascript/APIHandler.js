@@ -1,7 +1,7 @@
 class APIHandler {
-  constructor(baseUrl) {
-    this.BASE_URL = baseUrl;
-    this.api = axios.create({ baseUrl })
+  constructor(baseURL) {
+    this.BASE_URL = baseURL;
+    this.api = axios.create({ baseURL })
   }
 
   getFullList = () => this.api.get('/characters')
