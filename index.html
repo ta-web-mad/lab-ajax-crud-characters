@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./public/stylesheets/style.css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <title>IH Characters</title>
 </head>
+
 <body>
   <section class="container">
     <h1>Ironhack Characters API</h1>
@@ -21,16 +24,17 @@
     </div>
     <section class="operations">
       <div class="operation">
+        <div class="show-list container"></div>
         <button id="fetch-all">Fetch all</button>
       </div>
       <div class="operation">
         <label for="character-id">Search by ID: </label>
-        <input type="text" name="character-id">
+        <input type="text" id="character-id" name="character-id">
         <button id="fetch-one">Fetch one</button>
       </div>
       <div class="operation delete">
         <label for="character-id-delete">Delete by ID: </label>
-        <input type="text" name="character-id-delete">
+        <input type="text" id="character-id-delete" name="character-id-delete">
         <button id="delete-one">Delete one</button>
       </div>
 
@@ -56,7 +60,7 @@
           <label for="cartoon">Is a Cartoon: </label>
           <input name="cartoon" type="checkbox">
         </div>
-        <button id="send-data">Create</button>
+        <button id="send-data-create">Create</button>
       </form>
     </section>
     <section class="form-container">
@@ -89,4 +93,5 @@
   <script type="text/javascript" src="./public/javascript/APIHandler.js"></script>
   <script type="text/javascript" src="./public/javascript/index.js"></script>
 </body>
+
 </html>
