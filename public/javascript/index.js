@@ -1,142 +1,140 @@
 const charactersAPI = new APIHandler('http://localhost:5500');
 
 window.addEventListener('load', () => {
-  document.getElementById('fetch-all').addEventListener('click', function (event) {
-    
-    charactersAPI
-      .getFullList()
-      .then(res => res.data.forEach((el, index) => {
-        const mold = new DocumentFragment();
-        
-        index==0?
-          mold.appendChild(document.querySelector('.character-info')) :
-          mold.appendChild(document.querySelector('.character-info').cloneNode(true));
+	document.getElementById('fetch-all').addEventListener('click', function (event) {
+		charactersAPI
+			.getFullList()
+			.then((res) =>
+				res.data.forEach((el, index) => {
+					const mold = new DocumentFragment();
 
-        mold.querySelector('.name').textContent = 'Name: ' + el.name;
-        mold.querySelector('.occupation').textContent = 'Occupation: ' + el.occupation;
-        mold.querySelector('.cartoon').textContent = 'Is cartoon?: ' + el.cartoon;
-        mold.querySelector('.weapon').textContent = 'Weapon: ' + el.weapon;
+					index == 0
+						? mold.appendChild(document.querySelector('.character-info'))
+						: mold.appendChild(document.querySelector('.character-info').cloneNode(true));
 
-        document.querySelector('.characters-container').appendChild(mold);
-      }))
-      .catch(err => console.error(err));
-    
-  });
+					mold.querySelector('.name').textContent = 'Name: ' + el.name;
+					mold.querySelector('.occupation').textContent = 'Occupation: ' + el.occupation;
+					mold.querySelector('.cartoon').textContent = 'Is cartoon?: ' + el.cartoon;
+					mold.querySelector('.weapon').textContent = 'Weapon: ' + el.weapon;
 
-  document.getElementById('fetch-one').addEventListener('click', function (event) {
-    const id = document.querySelector('#character-id').value;
-    if(!id) return;
+					document.querySelector('.characters-container').appendChild(mold);
+				})
+			)
+			.catch((err) => console.error(err));
+	});
 
-    const first = document.querySelector('.character-info');
-    document.querySelector('.characters-container').innerHTML = '';
-    document.querySelector('.characters-container').appendChild(first);
+	document.getElementById('fetch-one').addEventListener('click', function (event) {
+		const id = document.querySelector('#character-id').value;
+		if (!id) return;
 
-    charactersAPI
-      .getOneRegister(id)
-      .then(res => {
-        if(!res.data) return;
+		const first = document.querySelector('.character-info');
+		document.querySelector('.characters-container').innerHTML = '';
+		document.querySelector('.characters-container').appendChild(first);
 
-        const mold = new DocumentFragment();
-        console.log(res.data);
-        
-        mold.appendChild(document.querySelector('.character-info'));
+		charactersAPI.getOneRegister(id).then((res) => {
+			if (!res.data) return;
 
-        mold.querySelector('.name').textContent = 'Name: ' + res.data.name;
-        mold.querySelector('.occupation').textContent = 'Occupation: ' + res.data.occupation;
-        mold.querySelector('.cartoon').textContent = 'Is cartoon?: ' + res.data.cartoon;
-        mold.querySelector('.weapon').textContent = 'Weapon: ' + res.data.weapon;
+			const mold = new DocumentFragment();
+			console.log(res.data);
 
-        document.querySelector('.characters-container').appendChild(mold);
-      })
-  });
+			mold.appendChild(document.querySelector('.character-info'));
 
-  document.getElementById('delete-one').addEventListener('click', function (event) {
-    const id = document.querySelector('#character-id-delete').value;
-    const button = document.getElementById('delete-one');
-    button.classList.remove('active', 'error');
-    if(!id) {
-      button.classList.add('error');
-      return;
-    }
+			mold.querySelector('.name').textContent = 'Name: ' + res.data.name;
+			mold.querySelector('.occupation').textContent = 'Occupation: ' + res.data.occupation;
+			mold.querySelector('.cartoon').textContent = 'Is cartoon?: ' + res.data.cartoon;
+			mold.querySelector('.weapon').textContent = 'Weapon: ' + res.data.weapon;
 
-    charactersAPI
-      .deleteOneRegister(id)
-      .then(res => {
-        if(!res.data) {
-          button.classList.add('error');
-          return;
-        }
+			document.querySelector('.characters-container').appendChild(mold);
+		});
+	});
 
-        button.classList.add('active');
-      })
-      .catch(err => {
-        button.classList.add('error');
-        console.error(err);
-      });
-  });
+	document.getElementById('delete-one').addEventListener('click', function (event) {
+		const id = document.querySelector('#character-id-delete').value;
+		const button = document.getElementById('delete-one');
+		button.classList.remove('active', 'error');
+		if (!id) {
+			button.classList.add('error');
+			return;
+		}
 
-  document.getElementById('edit-character-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const button = document.getElementById('send-data-edit');
-    button.classList.remove('active', 'error');
+		charactersAPI
+			.deleteOneRegister(id)
+			.then((res) => {
+				if (!res.data) {
+					button.classList.add('error');
+					return;
+				}
 
-    const inputs = [...this.querySelectorAll('#edit-character-form input')];
+				button.classList.add('active');
+			})
+			.catch((err) => {
+				button.classList.add('error');
+				console.error(err);
+			});
+	});
 
-    const id = inputs[0].value;
-    const body = {
-      name: inputs[1].value,
-      occupation: inputs[2].value,
-      weapon: inputs[3].value,
-      cartoon: inputs[4].checked
-    };
+	document.getElementById('edit-character-form').addEventListener('submit', function (event) {
+		event.preventDefault();
+		const button = document.getElementById('send-data-edit');
+		button.classList.remove('active', 'error');
 
-    charactersAPI
-      .updateOneRegister(id, body)
-      .then(res => {
-        if(!res.data) {
-          button.classList.add('error');
-          return;
-        }
+		const inputs = [...this.querySelectorAll('input')];
 
-        button.classList.add('active');
-      })
-      .catch(err => {
-        button.classList.add('error');
-        console.error(err);
-      });
+		const id = inputs[0].value;
+		const body = {
+			name: inputs[1].value,
+			occupation: inputs[2].value,
+			weapon: inputs[3].value,
+			cartoon: inputs[4].checked,
+		};
 
-    document.querySelector('#edit-character-form').reset()
-  });
+		charactersAPI
+			.updateOneRegister(id, body)
+			.then((res) => {
+				if (!res.data) {
+					button.classList.add('error');
+					return;
+				}
 
-  document.getElementById('new-character-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const button = document.getElementById('send-data-create');
-    button.classList.remove('active', 'error');
+				button.classList.add('active');
+			})
+			.catch((err) => {
+				button.classList.add('error');
+				console.error(err);
+			});
 
-    const inputs = [...this.querySelectorAll('#new-character-form input')];
+		document.querySelector('#edit-character-form').reset();
+	});
 
-    const body = {
-      name: inputs[0].value,
-      occupation: inputs[1].value,
-      weapon: inputs[2].value,
-      cartoon: inputs[3].checked
-    };
+	document.getElementById('new-character-form').addEventListener('submit', function (event) {
+		event.preventDefault();
+		const button = document.getElementById('send-data-create');
+		button.classList.remove('active', 'error');
 
-    charactersAPI
-      .createOneRegister(body)
-      .then(res => {
-        if(!res.data) {
-          button.classList.add('error');
-          return;
-        }
+		const inputs = [...this.querySelectorAll('input')];
 
-        button.classList.add('active');
-      })
-      .catch(err => {
-        button.classList.add('error');
-        console.error(err);
-      });
+		const body = {
+			name: inputs[0].value,
+			occupation: inputs[1].value,
+			weapon: inputs[2].value,
+			cartoon: inputs[3].checked,
+		};
 
-    document.querySelector('#new-character-form').reset()
-  });
+		charactersAPI
+			.createOneRegister(body)
+			.then((res) => {
+				if (!res.data) {
+					button.classList.add('error');
+					return;
+				}
+
+				button.classList.add('active');
+			})
+			.catch((err) => {
+				button.classList.add('error');
+				console.error(err);
+			});
+
+		document.querySelector('#new-character-form').reset();
+	});
 });
