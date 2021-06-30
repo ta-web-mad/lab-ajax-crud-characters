@@ -22,10 +22,10 @@ window.addEventListener('load', () => {
   });
 
   document.getElementById('fetch-one').addEventListener('click', function (event) {
-    const fetch_one = document.querySelector('#character-id').value
+    const fetchOne = document.querySelector('#character-id').value
 
     charactersAPI
-      .getOneRegister(fetch_one)
+      .getOneRegister(fetchOne)
       .then(res => {
         const { data } = res
         let singleCharacter = ''
@@ -44,9 +44,9 @@ window.addEventListener('load', () => {
   });
 
   document.getElementById('delete-one').addEventListener('click', function (event) {
-    const delete_one = document.querySelector('#character-id-delete').value
+    const deleteOne = document.querySelector('#character-id-delete').value
     charactersAPI
-      .deleteOneRegister(delete_one)
+      .deleteOneRegister(deleteOne)
       .then(res => res, alert('Personaggio eliminato'))
       .catch(err => console.log(err))
   });
@@ -54,13 +54,13 @@ window.addEventListener('load', () => {
   document.getElementById('edit-character-form').addEventListener('submit', function (event) {
     // updateOneRegister = (id, characterInfo) => this.api.get(`/characters${id}`, characterInfo)
     event.preventDefault()
-    const edit_one = document.querySelectorAll('#edit-character-form input')
-    const characterId = edit_one[0].value
+    const editOne = document.querySelectorAll('#edit-character-form input')
+    const characterId = editOne[0].value
     const character = {
-            name: edit_one[1].value,
-      occupation: edit_one[2].value,
-      weapon: edit_one[3].value,
-      cartoon: edit_one[4].checked
+            name: editOne[1].value,
+      occupation: editOne[2].value,
+      weapon: editOne[3].value,
+      cartoon: editOne[4].checked
     }
     console.log(characterId)
     console.log(character)
@@ -77,12 +77,12 @@ window.addEventListener('load', () => {
 
   document.getElementById('new-character-form').addEventListener('submit', function (event) {
     event.preventDefault()
-    const create_one = document.querySelectorAll('#new-character-form input')
+    const createOne = document.querySelectorAll('#new-character-form input')
     const character = {
-      name: create_one[0].value,
-      occupation: create_one[1].value,
-      weapon: create_one[2].value,
-      cartoon: create_one[3].checked
+      name: createOne[0].value,
+      occupation: createOne[1].value,
+      weapon: createOne[2].value,
+      cartoon: createOne[3].checked
     }
 
 
