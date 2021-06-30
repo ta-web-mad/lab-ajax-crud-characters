@@ -35,39 +35,41 @@ window.addEventListener('load', () => {
 
     // identify if exist ID
 
-    let typingTimer2 //timer identifier
-    let doneTypingInterval2 = 400 //time in ms, .4 secs
+    let timeout //timer identifier
+    let timer = 400 //time in ms, .4 secs
 
     inputArr = document.querySelectorAll('.one')
 
     inputArr.forEach(input =>
         input.addEventListener('keyup', e => {
-            clearTimeout(typingTimer2)
+            clearTimeout(timeout)
 
             // bieeeen he usado un bind JAJAJAJ
             let checkId2 = checkId.bind(e.currentTarget)
 
-            typingTimer2 = setTimeout(checkId2, doneTypingInterval2)
+            timeout = setTimeout(checkId2, timer)
         })
     )
 
     inputArr.forEach(input =>
         input.addEventListener('keydown', () => {
-            clearTimeout(typingTimer2)
+            clearTimeout(timer)
             input.classList.remove('green')
             input.classList.remove('red')
         })
     )
 
     let checkId = function () {
-        // console.log(this)
+        // console.log(this.id)
 
         api.getOneRegister(this.value || -1)
             .then(res => {
                 if (res.data) {
                     this.classList.add('green')
+                    if (this.id === 'chrId') doneTyping(this)
                 } else {
                     this.classList.add('red')
+                    if (this.id === 'chrId') doneTyping(this)
                 }
             })
             .catch(err => console.log(err))
@@ -97,23 +99,8 @@ window.addEventListener('load', () => {
 
     //EDIT CHARACTeR
 
-    let typingTimer //timer identifier
-    let doneTypingInterval = 400 //time in ms, .4 secs
-    let input = document.querySelector('#chrId')
-
-    //on keyup, empieza el timeout
-    input.addEventListener('keyup', () => {
-        clearTimeout(typingTimer)
-        // si pasa los .4sec llama a la function
-        typingTimer = setTimeout(doneTyping, doneTypingInterval)
-    })
-
-    //on keydown, clear the countdown
-    input.addEventListener('keydown', () => {
-        clearTimeout(typingTimer)
-    })
-
     const doneTyping = () => {
+        console.log('donetyping')
         const numberSeach = document.querySelector('#chrId')
 
         const inputsEdit = document.querySelectorAll('#edit-character-form input')
@@ -121,6 +108,8 @@ window.addEventListener('load', () => {
         api.getOneRegister(numberSeach.value)
             .then(res => {
                 res = res.data
+
+                // console.log(Object.values(res))
 
                 if (res) {
                     inputsEdit[1].value = res.name
